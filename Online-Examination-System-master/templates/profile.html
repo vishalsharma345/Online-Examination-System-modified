@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>profile</title>
+    {% load static %}
+
+    {% endblock %}
+
+   {% block content %}
+        <link href="{% static 'css/profile/theme.css' %}" rel="stylesheet" media="all" type="text/css">
+{#<div class="container" style="font-size: x-large">#}
+{#        {% if messages %}#}
+{#    <div class="messages">#}
+{#    <ul class="messages">#}
+{#        {% for message in messages %}#}
+{#            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>#}
+{##}
+{#        {% endfor %}#}
+{#    </ul>#}
+{#    </div>#}
+{#    {% endif %}#}
+<style>
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 100px;
+}
+</style>
+
+
+
+  <div class="container">
+
+
+
+
+  <div class="row">
+      <div class="col-sm-offset-1 col-sm-4 col-xs-12">
+        <div class="box-wrapper">
+        <h3>Profile Picture</h3>
+            {% if instance.image %}
+      <div class="input-wrapper">
+          <img src="{{ instance.image.url }}" alt="..." class="img-thumbnail img-responsive">{% endif %}
+      </div>
+  </div>
+
+        <div class="box-wrapper">
+          <h3 class="box-title">Extend your subscription</h3>
+          <div class="box-content">
+            <form name="updateSubscription" id="updateSubscription" action="http://portal.onlinexams.in/ajax-scripts/?section=subscription" class="quick-form ajax-form" method="post">
+
+              <div class="ajax-msg hidden"></div>
+              <div class="form-group">
+                <input type="text" name="enrollment_key" id="enrollment_key" class="field-input enrollment-key required" placeholder="Subscription Key">
+                <label class="form-field-icon fzx-icon-key" for="subscription_key"></label>
+                <div class="form-field-instruction">Provide subscription key.</div>
+              </div>
+           {% for p in user %}
+
+              <hr>
+
+              <input name="subscription-submit" id="subscription-submit" class="btn btn-primary btn-lg" value="Submit" type="submit">
+              <input type="hidden" id="nonce" name="nonce" value="8143712bab"><input type="hidden" name="_wp_http_referer" value="/my-account/"><input type="hidden" id="nonce" name="nonce" value="8143712bab"><input type="hidden" name="_wp_http_referer" value="/my-account/">            </form>
+            <hr>
+            <p><strong>I don’t have enrollment key, what should I do?</strong><br>Don’t worry! You can subscribe to our various courses by doing online payment, check our plans in <strong>My Subscriptions</strong> section. You can also buy keys form various sources, <strong>contact us</strong> for more information.</p>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="col-sm-6 col-xs-12">
+        <input type="hidden" name="_wp_http_referer" value="/my-account/"><div class="box-wrapper"><h3 class="box-title">Account Information</h3><div class="box-content"><form name="profileform" id="profileform" action="/profile/{{ p }}/edit"  class="quick-form ajax-form"><div></div><div class="row"><div class="col-sm-6 col-xs-12"><div class="form-group"><input type="text" name="first_name"  class="field-input" value="" placeholder="{{ p.pk }}" readonly="readonly" disabled="disabled"><label class="form-field-icon fzx-icon-user" for="first_name"></label><div class="form-field-instruction">User Name </div></div></div><div class="col-sm-6 col-xs-12"><div class="form-group"><input type="text" name="last_name"  class="field-input" value="" placeholder="{{ p.name }}" readonly="readonly" disabled="disabled"><label class="form-field-icon fzx-icon-user" for="last_name"></label><div class="form-field-instruction">Name</div></div></div></div><div class="form-group"><input type="input" name="user_email" class="field-input"  placeholder="{{ p.email}}" readonly="readonly" disabled="disabled"><label class="form-field-icon fzx-icon-mail" for="user_email"></label><div class="form-field-instruction">Email Address</div></div><div class="form-group"><input type="input" name="phone_mobile"  class="field-input" value="" placeholder="{{ p.phone }}" readonly="readonly" disabled="disabled"><label class="form-field-icon fzx-icon-phone" for="phone_mobile"></label><div class="form-field-instruction">Mobile Number</div></div><hr><div class="form-group"><input type="input" name="user_log" id="user_log" class="field-input" value="" placeholder="{{ p.address  }}" readonly="readonly" disabled="disabled"><label class="form-field-icon fzx-icon-mail" for="user_email"></label><div class="form-field-instruction">Address</div></div><div class="row"><div class="col-sm-6 col-xs-12"><div class="form-group"><input type="password" id="user_pass" name="user_pass" class="field-input" value="" placeholder="Password"><label class="form-field-icon fzx-icon-lock" for="user_pass"></label><div class="form-field-instruction">Password (Minimum length is 6)</div></div></div><div class="col-sm-6 col-xs-12"><div class="form-group"><input type="password" id="user_pass_conf" name="user_pass_conf" class="field-input" value="" placeholder="Confirm Password"><label class="form-field-icon fzx-icon-lock" for="user_pass_conf"></label><div class="form-field-instruction">Confirm Your Password</div></div></div></div><hr><input name="update-profile-btn"  class="btn btn-info" value="Edit" type="submit"><input type="hidden" name="_wp_http_referer" value="/my-account/"><input type="hidden" value="23302" id="profile_user_id" name="profile_user_id"></form></div></div>      </div>
+    </div>
+
+
+    {% endfor %}
+
+
+
+
+
+
+
+
+{#      <div class="form-group" style="text-align: left">#}
+{#           <h1>Profile</h1>#}
+{#            {% for p in user %}#}
+{#            <p>Username: {{ p.pk }}</p>#}
+{#            <p>First Name: {{ p.name }}</p>#}
+{#        <p>Last Name: {{ p.phone }}</p>#}
+{#        <p>Email Id: {{ p.email}}</p>#}
+{##}
+{#                <div class="row">#}
+{#    <div class="col-md-3 col-md-offset-0" >#}
+{##}
+{#<a href="/profile/{{ p }}/edit" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"> <span class="glyphicon glyphicon-pencil" aria-hidden="true">#}
+{##}
+{#                        </span>Edit</a>#}
+{#  {% if instance.image %}#}
+{#<img src='{{ instance.image.url }}' class="img-responsive"/>#}
+{#{% endif %}#}
+{#    </div>#}
+{#    </div>#}
+{#</div>#}
+{#        {% endfor %}#}
+
+    {% endblock %}
